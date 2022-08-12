@@ -2,9 +2,9 @@
 
 ## API Basic Information
 
-* Base endpoint is https://fapi.bitrue.com
+* baseurl https://dapi.bitrue.com
 * All endpoints return either a JSON object or array. 
-* Data is returned in reverse order. Newest first, oldest last.
+* Data is returned in Reverse order. newest first, oldest last.
 * All time and timestamp related fields are in milliseconds.
 
 ## HTTP Error Codes
@@ -13,7 +13,7 @@
 * HTTP 429 return code is used when breaking a request rate limit.
 * HTTP 418 return code is used when an IP has been auto-banned for continuing to send requests after receiving 429 codes.
 * HTTP 5XX return codes are used for internal errors
-* HTTP 504 return code is used when the API successfully sent the message but did not get a response within the timeout period. It is important to NOT treat this as a failure operation; the execution status is UNKNOWN and could have been a success.
+* HTTP 504 return code is used when the API successfully sent the message but not get a response within the timeout period. It is important to NOT treat this as a failure operation; the execution status is UNKNOWN and could have been a success.
 * All endpoints can possibly return an ERROR, the error payload is as follows:
 
 ``` json
@@ -28,13 +28,14 @@
 
 * All requests are based on the Https protocol, and the Content-Type in the request header information needs to be uniformly set to:'application/json'
 * For the interface of the GET method, the parameters must be sent in the query string
-* For the interface of the POST method, the parameters must be sent in the request body
+* The interface of the POST method, the parameters must be sent in the request body
 * Parameters may be sent in any order.
 
 
 ## LIMITS
 
 * There will be a limited frequency description below each interface.
+* A 429 will be returned when either rate limit is violated.
 * A 429 will be returned when either rate limit is violated.
 
 ## Endpoint Security Type
@@ -58,7 +59,7 @@
 * The signature uses the HMAC SHA256 algorithm. The `API-Secret` corresponding to the `API-KEY` is used as the HMAC SHA256 key.
 * The request header of `X-CH-SIGN` is based on timestamp + method + requestPath + body string  (+ means string connection) as the operation object
 * The value of timestamp is the same as the `X-CH-TS` request header, method is the request method, and the letters are all uppercase: `GET/POST`
-* requestPath is the request interface path. For example: /fapi/v1/order
+* requestPath is the request interface path For example: /sapi/v1/order
 * body is the string of the request body (post only)
 * The signature is **not case sensitive**
 
@@ -81,7 +82,7 @@ if (timestamp < (serverTime + 1000) && (serverTime - timestamp) <= recvWindow) {
 
 * **It recommended to use a small recvWindow of 5000 or less!**
 
-## SIGNED Endpoint Examples for POST /fapi/v1/order
+## SIGNED Endpoint Examples for POST /sapi/v1/order
 
 Here is a step-by-step example of how to send a vaild signed payload from the Linux command line using `echo`, `openssl`, and `curl`.
 
@@ -117,22 +118,16 @@ Here is a step-by-step example of how to send a vaild signed payload from the Li
 
 * Curl command :
 ``` shell
-  [linux]$ curl -H "X-CH-APIKEY: c3b165fd5218cdd2c2874c65da468b1e" -H "X-CH-SIGN: c50d0a74bb9427a9a03933d0eded03af9bf50115dc5b706882a4fcf07a26b761" -H "X-CH-TS: 1588591856950" -H "Content-Type:application/json" -X POST 'http://fapi.bitrue.com/fapi/v1/order/test' -d '{"symbol":"BTCUSDT","price":"9300","quantity":"1","side":"BUY","type":"LIMIT"}'
+  [linux]$ curl -H "X-CH-APIKEY: c3b165fd5218cdd2c2874c65da468b1e" -H "X-CH-SIGN: c50d0a74bb9427a9a03933d0eded03af9bf50115dc5b706882a4fcf07a26b761" -H "X-CH-TS: 1588591856950" -H "Content-Type:application/json" -X POST 'http://localhost:30000/sapi/v1/order/test' -d '{"symbol":"BTCUSDT","price":"9300","quantity":"1","side":"BUY","type":"LIMIT"}'
  ```
 
-# Example
-Demo for Bitrue Futures Open APIs:
-[Java](https://github.com/Bitrue-exchange/futures_api_examples)
-[Python](https://github.com/Bitrue-exchange/futures_api_examples)
-
-
-# Public API
+# public API
 
 ## Security: None
 
 Endpoints under Public section can be accessed freely **without** requiring any `API-key` or `signature`
 
-#### /fapi/v1/ping
+#### /dapi/v1/ping
 
 
 
@@ -146,7 +141,7 @@ This endpoint checks connectivity to the host
 {}
 ```
 
-#### /fapi/v1/time
+#### /dapi/v1/time
 
 Security: None
 Endpoints under Public section can be accessed freely **without** requiring any `API-key` or `signature`
@@ -160,22 +155,22 @@ This endpoint  check server Time
 ``` json
 {
     "serverTime":1607702400000,
-    "timezone":"Coordinated Universal Time"
+    "timezone":"Chinese standard time"
 }
 ```
 
 | name                    | type              | example                                | description              |
 | ----------------------- | ----------------- | -------------------------------------- | ------------------------ |
 | serverTime              | long              | 1607702400000                          | server timestamp         |
-| timezone                | string            | Coordinated Universal Time             | server time zone         |
+| timezone                | string            | China standard time                    | server time zone         |
 
 
-#### /fapi/v1/contracts
+#### /dapi/v1/contracts
 
 Security: None
 Endpoints under Public section can be accessed freely **without** requiring any `API-key` or `signature`
 
-This endpoint checks server Time
+This endpoint  check server Time
 
 ###### parameters
 
@@ -184,7 +179,7 @@ This endpoint checks server Time
 ``` json
 [
     {
-        "symbol": "H-HT-USDT",
+        "symbol": "H-HT-USD",
         "pricePrecision": 8,
         "side": 1,
         "maxMarketVolume": 100000,
@@ -204,12 +199,12 @@ This endpoint checks server Time
 
 | name                    | type              | example                  | description                          |
 | ----------------------- | ----------------- | ------------------------ | ------------------------------------ |
-| symbol                  | string            | E-BTC-USDT               | Contract name                        |
+| symbol                  | string            | E-BTC-USD                | Contract name                        |
 | status                  | number            | 1                        | status (0:cannot trade, 1:can trade) |
 | type                    | string            | S                        | contract type, E: perpetual contract, S: test contract, others are mixed contract  |
-| side                    | number            | 1                        | Contract direction(backwards：0，forwards:1) |
+| side                    | number            | 0                        | Contract direction(backwards：0，1：forward) |
 | multiplier              | number            | 0.5                      | Contract face value                   |
-| multiplierCoin          | string            | BTC                      | Contract face value unit              |
+| multiplierCoin          | string            | USD                      | Contract face value unit              |
 | pricePrecision          | number            | 4                        | Precision of the price                | 
 | minOrderVolume          | number            | 10                       | Minimum order volume                  |
 | minOrderMoney           | number            | 10                       | Minimum order value                   |
@@ -225,7 +220,7 @@ This endpoint checks server Time
 
 Market section can be accessed freely **without** requiring any `API-key` or `signature`.
 
-#### /fapi/v1/depth
+#### /dapi/v1/depth
 
 Market depth data  
 
@@ -234,7 +229,7 @@ Market depth data
 | name                  | type          | memo                                    |
 | --------------------- | ------------- | --------------------------------------- |
 | limit                 |  integer      |  Default 100, Max 100                   |
-| Contract name         |  string       |  Contract Name E.g. E-BTC-USDT          |
+| Contract name         |  string       |  Contract Name E.g. E-BTC-USD           |
 
 ###### Response
 
@@ -274,11 +269,11 @@ The fields bids and asks are lists of order book price level entries, sorted fro
 
 | name                    | type              | example                  | description                          |
 | ----------------------- | ----------------- | ------------------------ | ------------------------------------ |
-| ' '                     | float             | 131.1                    | Price level                          |
+| ' '                     | float             | 131.1                    | price level                          |
 | ' '                     | float             | 2.3                      | Total order quantity for this price level |
 
 
-#### /fapi/v1/ticker
+#### /dapi/v1/ticker
 
 24 hour price change statistics
 
@@ -286,7 +281,7 @@ The fields bids and asks are lists of order book price level entries, sorted fro
 
 | name                  | type          | memo                                    |
 | --------------------- | ------------- | --------------------------------------- |
-| Contract name         |  string       |  Contract Name E.g. E-BTC-USDT          |
+| Contract name         |  string       |  Contract Name E.g. E-BTC-USD           |
 
 ###### Response
 
@@ -304,14 +299,14 @@ The fields bids and asks are lists of order book price level entries, sorted fro
 | name                    | type              | example                  | description                          |
 | ----------------------- | ----------------- | ------------------------ | ------------------------------------ |
 | time                    | long              | 1595563624731            | Open time                            |
-| high                    | float             | 9900                     | Highest price                         |
-| low                     | float             | 8800.34                  | Lowest price                          |
+| high                    | float             | 9900                     | Higher price                         |
+| low                     | float             | 8800.34                  | Lower price                          |
 | last                    | float             | 8900                     | Newest price                         | 
 | vol                     | float             | 4999                     | Trade volume                         |
 | rose                    | string            | +0.5                     | Price variation                      |
 
 
-#### /fapi/v1/ticker
+#### /dapi/v1/ticker
 
 24 hour price change statistics
 
@@ -319,7 +314,7 @@ The fields bids and asks are lists of order book price level entries, sorted fro
 
 | name                  | type          | memo                                    |
 | --------------------- | ------------- | --------------------------------------- |
-| contractName         |  string       |  ContractName E.g. E-BTC-USDT          |
+| Contract name         |  string       |  Contract Name E.g. E-BTC-USD           |
 
 ###### Response
 
@@ -337,15 +332,15 @@ The fields bids and asks are lists of order book price level entries, sorted fro
 | name                    | type              | example                  | description                          |
 | ----------------------- | ----------------- | ------------------------ | ------------------------------------ |
 | time                    | long              | 1595563624731            | Open time                            |
-| high                    | float             | 9900                     | Highest  price                         |
-| low                     | float             | 8800.34                  | Lowest price                          |
+| high                    | float             | 9900                     | Higher price                         |
+| low                     | float             | 8800.34                  | Lower price                          |
 | last                    | float             | 8900                     | Newest price                         | 
 | vol                     | float             | 4999                     | Trade volume                         |
 | rose                    | string            | +0.5                     | Price variation                      |
 
 
 
-#### /fapi/v1/klines
+#### /dapi/v1/klines
 
 kline/charts data
 
@@ -353,8 +348,8 @@ kline/charts data
 
 | name                  | type          | memo                                    |
 | --------------------- | ------------- | --------------------------------------- |
-| contractName          |  string       | Contract Name E.g. E-BTC-USDT           |
-| interval              | string        | Identifies the sent value as: 1min,5min,15min,30min,1h,1day,1week,1month |
+| ContractName          |  string       |  Contract Name E.g. E-BTC-USD           |
+| interval              | string        | identifies the sent value as: 1min,5min,15min,30min,1h,1day,1week,1month |
 | limit                 | integer       | Default 100, Max 300                    |
 
 
@@ -394,7 +389,7 @@ kline/charts data
 | idx                     | long              | 1595563624731            | Start timestamp(ms)                  |
 | high                    | float             | 9900                     | Higher price                         |
 | low                     | float             | 8800.34                  | Lower price                          |
-| close                   | float             | 8900                     | Close price                         | 
+| close                   | float             | 8900                     | close price                         | 
 | vol                     | float             | 4999                     | Trade volume                         |
 
 
@@ -404,7 +399,7 @@ kline/charts data
 
 All interfaces under the transaction require `signature` and `API-key` verification​​
 
-#### /fapi/v1/order (POST)
+#### /dapi/v1/order (POST)
 
 Creation of single new orders
 
@@ -425,9 +420,9 @@ Creation of single new orders
 | --------------------- | ------------- | --------------------------------------- |
 | volume                | number        | Order quantity                          |
 | price                 | number        | Order price                             |
-| contractName          | string        | Contract name E.g. E-BTC-USDT           |
+| contractName          | string        | Contract name E.g. E-BTC-USD            |
 | type                  | string        | Order type, LIMIT/MARKET                |
-| side                  | string        | Trade direction, BUY/SELL               |
+| side                  | string        | trade direction, BUY/SELL               |
 | open                  | string        | Open balancing direction, OPEN/CLOSE    |
 | positionType          | number        | Hold-up position, 1 full position, 2 restrictive position           |
 | clientOrderId         | string        | Client order identity, a string with length less than 32 bit        |
@@ -442,7 +437,7 @@ Creation of single new orders
 }
 ```
 
-#### /fapi/v1/order (POST)
+#### /dapi/v1/order (POST)
 
 Creation of single new orders
 
@@ -463,7 +458,7 @@ Creation of single new orders
 | --------------------- | ------------- | --------------------------------------- |
 | volume                | number        | Order quantity                          |
 | price                 | number        | Order price                             |
-| contractName          | string        | Contract name E.g. E-BTC-USDT           |
+| contractName          | string        | Contract name E.g. E-BTC-USD            |
 | type                  | string        | Order type, LIMIT/MARKET                |
 | side                  | string        | trade direction, BUY/SELL               |
 | open                  | string        | Open balancing direction, OPEN/CLOSE    |
@@ -481,10 +476,10 @@ Creation of single new orders
 ```
 
 
-#### /fapi/v1/cancel (POST)
+#### /dapi/v1/cancel (POST)
 
-Cancel order. 
-Rate limit: 20 times/ 2 seconds
+Cancel order
+Speed limit rules: 20 times/ 2 seconds
 
 ###### Parameters
 
@@ -501,8 +496,8 @@ Rate limit: 20 times/ 2 seconds
 
 | name                  | type          | memo                                    |
 | --------------------- | ------------- | --------------------------------------- |
-| contractName          | string        | Contract name E.g. E-BTC-USDT           |
-| orderId               | string        | Order Id                                |
+| contractName          | string        | Contract name E.g. E-BTC-USD            |
+| orderId               | string        | order id                                |
 
 
 
@@ -514,11 +509,12 @@ Rate limit: 20 times/ 2 seconds
 }
 ```
 
-#### /fapi/v1/openOrders (GET)
+#### /dapi/v1/openOrders (GET)
 
-Open orders
+open orders
 
-retrieve all open order in a contract name.
+Speed limit rules:
+Obtain open contract, the user's current order
 
 ###### Parameters
 
@@ -535,7 +531,7 @@ retrieve all open order in a contract name.
 
 | name                  | type          | memo                                    |
 | --------------------- | ------------- | --------------------------------------- |
-| contractName          | string        | Contract name E.g. E-BTC-USDT           |
+| contractName          | string        | Contract name E.g. E-BTC-USD            |
 
 
 
@@ -553,7 +549,7 @@ retrieve all open order in a contract name.
        "avgPrice": 0E-8,
        "transactTime": "1607702400000",
        "action": "OPEN",
-       "contractName": "E-BTC-USDT",
+       "contractName": "E-BTC-USD ",
        "type": "LIMIT",
        "status": "INIT"
     }
@@ -563,20 +559,20 @@ retrieve all open order in a contract name.
 
 | name                    | type              | example                  | description                          |
 | ----------------------- | ----------------- | ------------------------ | ------------------------------------ |
-| orderId                 | long | 150695552109032492 |  Order ID(system generated) |
-| contractName            | string | E-BTC-USDT | Contract Name  |
+| orderId                 | long | 150695552109032492 |  Order ID（system generated）|
+| contractName            | string | E-BTC-USD  | Contract Name  |
 | price                   | float | 4765.29  | Order price   |
 | origQty                 | float | 1.01     | Order quantity   |
 | executedQty             | float  | 1.01 | Filled orders quantity |
 | avgPrice                | float  | 4754.24  | Filled orders average price |
-| type                    | string | LIMIT    | Order type. Possible values can only be:LIMIT(limit price) and MARKET（market price）|
-| side                    | string | BUY      |Order direction. Possible values can only be: BUY（buy long）and SELL（sell short）  |
-| status                  | string | NEW      |Order status. Possible values are：NEW(new order，not filled),PARTIALLY_FILLED(partially filled), FILLED（fully filled, CANCELLED（already cancelled）and REJECTED（order rejected）|
+| type                    | string | LIMIT    | Order type. Possible values can only be:LIMIT(limit price) andMARKET（market price）|
+| side                    | string | BUY      |Order direction. Possible values can only be：BUY（buy long）and SELL（sell short）  |
+| status                  | string | NEW      |Order status. Possible values are：NEW(new order，not filled)、PARTIALLY_FILLED（partially filled）、FILLED（fully filled）、CANCELLED（already cancelled）andREJECTED（order rejected）|
 | action                  | string | OPEN     | OPEN/CLOSE   |
 | transactTime            | long |1607702400000 |Order creation time |
 
 
-#### /fapi/v1/order (GET)
+#### /dapi/v1/order (GET)
 
 Order details
 
@@ -596,7 +592,7 @@ Order details
 
 | name                  | type          | memo                                    |
 | --------------------- | ------------- | --------------------------------------- |
-| contractName          | string        | Contract name E.g. E-BTC-USDT           |
+| contractName          | string        | Contract name E.g. E-BTC-USD            |
 | orderId               | string        | Order ID                                |
 
 
@@ -615,7 +611,7 @@ Order details
        "avgPrice": 0E-8,
        "transactTime": "1607702400000",
        "action": "OPEN",
-       "contractName": "E-BTC-USDT",
+       "contractName": "E-BTC-USD ",
        "type": "LIMIT",
        "status": "INIT"
     }
@@ -627,7 +623,7 @@ Order details
 | name                    | type              | example                  | description                          |
 | ----------------------- | ----------------- | ------------------------ | ------------------------------------ |
 | orderId                 | long | 150695552109032492 |  Order ID（system generated）|
-| contractName            | string | E-BTC-USDT | Contract Name  |
+| contractName            | string | E-BTC-USD  | Contract Name  |
 | price                   | float | 4765.29  | Order price   |
 | origQty                 | float | 1.01     | Order quantity   |
 | executedQty             | float  | 1.01 | Filled orders quantity |
@@ -646,11 +642,11 @@ Order details
 All interfaces under the account require `signature` and `API-key` verification​​
 
 
-#### /fapi/v1/account (GET)
+#### /dapi/v1/account (GET)
 
-Account info
+account info
 
-Rate limit rules: 20 times/2s
+Speed limit rules: 20 times/2s
 
 
 ###### Parameters
@@ -686,7 +682,7 @@ Rate limit rules: 20 times/2s
             "positionVos": [
                 {
                     "contractId": 1,
-                    "contractName": "E-BTC-USDT",
+                    "contractName": "E-BTC-USD ",
                     "contractSymbol": "BTC-USDT",
                     "positions": [
                         {
@@ -764,7 +760,7 @@ positionVos field:
 | name                    | type              | example                  | description                          |
 | ----------------------- | ----------------- | ------------------------ | ------------------------------------ |
 | contractId              |  integer          | 2                        | Contract id                          |
-| contractName            | string            | E-BTC-USDT               | Contract name                        |
+| contractName            | string            | E-BTC-USD                | Contract name                        |
 | contractSymbol          | string            | BTC-USDT                 | Contract coin pair                   |
 | positions               | [ ]               |                          | Position details                     |
 
