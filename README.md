@@ -2,7 +2,7 @@
 
 ## API Basic Information
 
-* baseurl https://dapi.bitrue.com
+* baseurl https://fapi.bitrue.com
 * All endpoints return either a JSON object or array. 
 * Data is returned in Reverse order. newest first, oldest last.
 * All time and timestamp related fields are in milliseconds.
