@@ -273,37 +273,6 @@ The fields bids and asks are lists of order book price level entries, sorted fro
 | ' '                     | float             | 2.3                      | Total order quantity for this price level |
 
 
-#### /dapi/v1/ticker
-
-24 hour price change statistics
-
-###### Parameters
-
-| name                  | type          | memo                                    |
-| --------------------- | ------------- | --------------------------------------- |
-| Contract name         |  string       |  Contract Name E.g. E-BTC-USD           |
-
-###### Response
-
-``` json
-{
-    "high": "9279.0301",
-    "vol": "1302",
-    "last": "9200",
-    "low": "9279.0301",
-    "rose": "0",
-    "time": 1595563624731
-}
-```
-
-| name                    | type              | example                  | description                          |
-| ----------------------- | ----------------- | ------------------------ | ------------------------------------ |
-| time                    | long              | 1595563624731            | Open time                            |
-| high                    | float             | 9900                     | Higher price                         |
-| low                     | float             | 8800.34                  | Lower price                          |
-| last                    | float             | 8900                     | Newest price                         | 
-| vol                     | float             | 4999                     | Trade volume                         |
-| rose                    | string            | +0.5                     | Price variation                      |
 
 
 #### /dapi/v1/ticker
