@@ -348,7 +348,7 @@ kline/charts data
 
 | name                  | type          | memo                                    |
 | --------------------- | ------------- | --------------------------------------- |
-| ContractName          |  string       |  Contract Name E.g. E-BTC-USD           |
+| contractName          |  string       |  Contract Name E.g. E-BTC-USD           |
 | interval              | string        | identifies the sent value as: 1min,5min,15min,30min,1h,1day,1week,1month |
 | limit                 | integer       | Default 100, Max 300                    |
 
