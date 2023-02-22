@@ -368,43 +368,6 @@ kline/charts data
 
 All interfaces under the transaction require `signature` and `API-key` verification​​
 
-#### /dapi/v1/order (POST)
-
-Creation of single new orders
-
-###### Parameters
-
-* Header:
-
-| name                  | type          | memo                                    |
-| --------------------- | ------------- | --------------------------------------- |
-| X-CH-TS               | string        | Time stamp                              |
-| X-CH-APIKEY           | string        | Your API-key                            |
-| X-CH-SIGN             | string        | Signature                               |
-
-
-* Body:
-
-| name                  | type          | memo                                    |
-| --------------------- | ------------- | --------------------------------------- |
-| volume                | number        | Order quantity                          |
-| price                 | number        | Order price                             |
-| contractName          | string        | Contract name E.g. E-BTC-USD            |
-| type                  | string        | Order type, LIMIT/MARKET                |
-| side                  | string        | trade direction, BUY/SELL               |
-| open                  | string        | Open balancing direction, OPEN/CLOSE    |
-| positionType          | number        | Hold-up position, 1 full position, 2 restrictive position           |
-| clientOrderId         | string        | Client order identity, a string with length less than 32 bit        |
-| timeInForce           | string        | IOC, FOK, POST_ONLY                     |
-
-
-###### Response:
-
-``` json
-{
-    "orderId": 256609229205684228
-}
-```
 
 #### /dapi/v1/order (POST)
 
@@ -433,7 +396,7 @@ Creation of single new orders
 | open                  | string        | Open balancing direction, OPEN/CLOSE    |
 | positionType          | number        | Hold-up position, 1 full position, 2 restrictive position           |
 | clientOrderId         | string        | Client order identity, a string with length less than 32 bit        |
-| timeInForce           | string        | IOC, FOK, POST_ONLY                     |
+| timeInForce           | string        | LMIT, MARKET, IOC, FOK, POST_ONLY       |
 
 
 ###### Response:
