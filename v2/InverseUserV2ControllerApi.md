@@ -403,9 +403,9 @@ curl -X POST -H 'Content-Type: application/json' -i /dapi/v2/futures_transfer --
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-|coinSymbol|string|false|coin symbol|-|
-|amount|bigdecimal|false|transfer amount|-|
-|transferType|string|false|transfer type<br/>WALLET_TO_CONTRACT("wallet_to_contract", "币币到合约"),<br/>CONTRACT_TO_WALLET("contract_to_wallet", "合约到币币")|-|
+|coinSymbol|string|true|coin symbol|-|
+|amount|bigdecimal|true|transfer amount|-|
+|transferType|string|true|transfer type<br/>WALLET_TO_CONTRACT("wallet_to_contract", "币币到合约"),<br/>CONTRACT_TO_WALLET("contract_to_wallet", "合约到币币")|-|
 |unionId|string|false|transfer union tag|-|
 
 
