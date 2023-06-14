@@ -1,5 +1,5 @@
 
-# USDⓈ-M Futures:user
+# COIN-M Futures:user
 ## Account Information V2 (USER_DATA)(HMAC SHA256)
 
 ```demo
