@@ -1,5 +1,5 @@
 
-# COIN-M Futures:user
+# user
 ## Account Information V2 (USER_DATA)(HMAC SHA256)
 
 ```demo
@@ -15,7 +15,7 @@ curl -X GET -i /dapi/v2/account
     "data":{
         "account":[
             {
-                "marginCoin":"USDT",
+                "marginCoin":"USD",
                 "coinPrecious":4,
                 "accountNormal":1010.4043400372839856,
                 "accountLock":2.9827889600000006,
@@ -37,7 +37,7 @@ curl -X GET -i /dapi/v2/account
                 ]
             },
             {
-                "marginCoin":"USDC",
+                "marginCoin":"USD",
                 "coinPrecious":8,
                 "accountNormal":9999981.6304078411247375,
                 "accountLock":1.4950614966,
@@ -57,8 +57,8 @@ curl -X GET -i /dapi/v2/account
                 "positionVos":[
                     {
                         "contractId":62,
-                        "contractName":"E-BTC-USDC",
-                        "contractSymbol":"BTC-USDC",
+                        "contractName":"E-BTC-USD",
+                        "contractSymbol":"BTC-USD",
                         "adlEnabled":false,
                         "positions":[
                             {
@@ -115,7 +115,7 @@ curl -X GET -i /dapi/v2/account
 **Type:** `GET`
 
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** Account Information V2 (USER_DATA)(HMAC SHA256)
 
@@ -197,7 +197,7 @@ curl -X GET -i /dapi/v2/account
 ## Notional and Leverage Brackets (USER_DATA)
 
 ```demo
-curl -X GET -i /dapi/v2/leverageBracket?contractName=E-SAND-USDC
+curl -X GET -i /dapi/v2/leverageBracket?contractName=E-SAND-USD
 ```
 
 > The above command returns JSON structured like this:
@@ -207,7 +207,7 @@ curl -X GET -i /dapi/v2/leverageBracket?contractName=E-SAND-USDC
     "code":"0",
     "msg":"Success",
     "data":{
-        "contractName":"E-SAND-USDC",
+        "contractName":"E-SAND-USD",
         "brackets":[
             {
                 "bracket":1,
@@ -282,7 +282,7 @@ curl -X GET -i /dapi/v2/leverageBracket?contractName=E-SAND-USDC
 **Type:** `GET`
 
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** Notional and Leverage Brackets (USER_DATA)
 
@@ -315,7 +315,7 @@ curl -X GET -i /dapi/v2/leverageBracket?contractName=E-SAND-USDC
 ## User Commission Rate (USER_DATA)(HMAC SHA256)
 
 ```demo
-curl -X GET -i /dapi/v2/commissionRate?contractName=E-SAND-USDC
+curl -X GET -i /dapi/v2/commissionRate?contractName=E-SAND-USD
 ```
 
 > The above command returns JSON structured like this:
@@ -325,7 +325,7 @@ curl -X GET -i /dapi/v2/commissionRate?contractName=E-SAND-USDC
     "code":"0",
     "msg":"Success",
     "data":{
-        "contractName":"E-SAND-USDC",
+        "contractName":"E-SAND-USD",
         "openTakerFeeRate":0.0004,
         "openMakerFeeRate":0.0002,
         "closeTakerFeeRate":0.0004,
@@ -339,7 +339,7 @@ curl -X GET -i /dapi/v2/commissionRate?contractName=E-SAND-USDC
 **Type:** `GET`
 
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** User Commission Rate (USER_DATA)(HMAC SHA256)
 
@@ -371,7 +371,7 @@ curl -X GET -i /dapi/v2/commissionRate?contractName=E-SAND-USDC
 
 ```demo
 curl -X POST -H 'Content-Type: application/json' -i /dapi/v2/futures_transfer --data '{
-	'coinSymbol': 'USDT',
+	'coinSymbol': 'USD',
 	'amount': 10,
 	'transferType': 'wallet_to_contract'
 }'
@@ -403,10 +403,10 @@ curl -X POST -H 'Content-Type: application/json' -i /dapi/v2/futures_transfer --
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-|coinSymbol|string|true|coin symbol|-|
-|amount|bigdecimal|true|transfer amount|-|
-|transferType|string|true|transfer type<br/>WALLET_TO_CONTRACT("wallet_to_contract", "币币到合约"),<br/>CONTRACT_TO_WALLET("contract_to_wallet", "合约到币币")|-|
-|unionId|string|false|transfer union tag|-|
+|coinSymbol|string| true     |coin symbol|-|
+|amount|bigdecimal| true    |transfer amount|-|
+|transferType|string| true    |transfer type<br/>WALLET_TO_CONTRACT("wallet_to_contract", "币币到合约"),<br/>CONTRACT_TO_WALLET("contract_to_wallet", "合约到币币")|-|
+|unionId|string| false    |transfer union tag|-|
 
 
 
@@ -432,31 +432,31 @@ curl -X GET -i /dapi/v2/futures_transfer_history?transferType=wallet_to_contract
 	'msg': 'Success',
 	'data': [{
 		'transferType': 'wallet_to_contract',
-		'symbol': 'USDT',
+		'symbol': 'USD',
 		'amount': 1.0,
 		'status': 1,
 		'ctime': 1685404575000
 	}, {
 		'transferType': 'wallet_to_contract',
-		'symbol': 'USDT',
+		'symbol': 'USD',
 		'amount': 3.0,
 		'status': 1,
 		'ctime': 1685495897000
 	}, {
 		'transferType': 'wallet_to_contract',
-		'symbol': 'USDT',
+		'symbol': 'USD',
 		'amount': 566.0,
 		'status': 1,
 		'ctime': 1685562991000
 	}, {
 		'transferType': 'wallet_to_contract',
-		'symbol': 'USDT',
+		'symbol': 'USD',
 		'amount': 66.0,
 		'status': 1,
 		'ctime': 1685571419000
 	}, {
 		'transferType': 'wallet_to_contract',
-		'symbol': 'USDT',
+		'symbol': 'USD',
 		'amount': 3.0,
 		'status': 1,
 		'ctime': 1685573130000
@@ -469,7 +469,7 @@ curl -X GET -i /dapi/v2/futures_transfer_history?transferType=wallet_to_contract
 **Type:** `GET`
 
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** Get Future Account transfer History List (USER_DATA)(HMAC SHA256)
 
@@ -506,7 +506,7 @@ curl -X GET -i /dapi/v2/futures_transfer_history?transferType=wallet_to_contract
 ## User's Force Orders (USER_DATA)
 
 ```demo
-curl -X GET -i /dapi/v2/forceOrdersHistory?contractName=E-BTC-USDC
+curl -X GET -i /dapi/v2/forceOrdersHistory?contractName=E-BTC-USD
 ```
 
 > The above command returns JSON structured like this:
@@ -554,7 +554,7 @@ curl -X GET -i /dapi/v2/forceOrdersHistory?contractName=E-BTC-USDC
 **Type:** `GET`
 
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** User's Force Orders (USER_DATA)
 

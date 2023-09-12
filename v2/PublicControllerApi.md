@@ -17,7 +17,7 @@ curl -X GET -i /dapi/v1/ping
 **Type:** `GET`
 
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** Test Connectivity PING
 
@@ -41,7 +41,7 @@ curl -X GET -i /dapi/v1/time
 **Type:** `GET`
 
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** Check Server Time
 
@@ -68,7 +68,7 @@ curl -X GET -i /dapi/v1/contracts
 ```json
 [
   {
-    "symbol": "H-HT-USDT",
+    "symbol": "H-HT-USD",
     "pricePrecision": 8,
     "side": 1,
     "maxMarketVolume": 100000,
@@ -91,7 +91,7 @@ curl -X GET -i /dapi/v1/contracts
 **Type:** `GET`
 
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** Current open contract
 

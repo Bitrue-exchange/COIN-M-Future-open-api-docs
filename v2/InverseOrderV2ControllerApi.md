@@ -1,9 +1,9 @@
 
-# COIN-M Futures:order
+# order
 ## Account Trade List (USER_DATA)(HMAC SHA256)
 
 ```demo
-curl -X GET -i /dapi/v2/myTrades?contractName=E-SAND-USDC&fromId=&limit=10&startTime=&endTime=
+curl -X GET -i /dapi/v2/myTrades?contractName=E-SAND-USD&fromId=&limit=10&startTime=&endTime=
 ```
 
 > The above command returns JSON structured like this:
@@ -18,7 +18,7 @@ curl -X GET -i /dapi/v2/myTrades?contractName=E-SAND-USDC&fromId=&limit=10&start
             "price":0.9,
             "qty":1,
             "amount":9,
-            "contractName":"E-SAND-USDC",
+            "contractName":"E-SAND-USD",
             "side":"BUY",
             "fee":"0.0018",
             "bidId":1558124009467904992,
@@ -38,7 +38,7 @@ curl -X GET -i /dapi/v2/myTrades?contractName=E-SAND-USDC&fromId=&limit=10&start
 **Type:** `GET`
 
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** Account Trade List (USER_DATA)(HMAC SHA256)
 
@@ -83,7 +83,7 @@ curl -X GET -i /dapi/v2/myTrades?contractName=E-SAND-USDC&fromId=&limit=10&start
 
 ```demo
 curl -X POST -H 'Content-Type: application/json' -i /dapi/v2/positionMargin --data '{
-	'contractName': 'E-SAND-USDC',
+	'contractName': 'E-SAND-USD',
 	'positionMargin': 10
 }'
 ```
@@ -131,7 +131,7 @@ curl -X POST -H 'Content-Type: application/json' -i /dapi/v2/positionMargin --da
 
 ```demo
 curl -X POST -H 'Content-Type: application/json' -i /dapi/v2/level_edit --data '{
-	'contractName': 'E-BTC-USDT',
+	'contractName': 'E-BTC-USD',
 	'leverage': 10
 }'
 ```
@@ -178,7 +178,7 @@ curl -X POST -H 'Content-Type: application/json' -i /dapi/v2/level_edit --data '
 ## Current All Open Orders (USER_DATA)(HMAC SHA256)
 
 ```demo
-curl -X GET -i /dapi/v2/openOrders?contractName=E-SAND-USDC
+curl -X GET -i /dapi/v2/openOrders?contractName=E-SAND-USD
 ```
 
 > The above command returns JSON structured like this:
@@ -210,7 +210,7 @@ curl -X GET -i /dapi/v2/openOrders?contractName=E-SAND-USDC
 **Type:** `GET`
 
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** Current All Open Orders (USER_DATA)(HMAC SHA256)
 
@@ -249,7 +249,7 @@ curl -X GET -i /dapi/v2/openOrders?contractName=E-SAND-USDC
 
 ```demo
 curl -X POST -H 'Content-Type: application/json' -i /dapi/v2/cancel --data '{
-    'contractName': 'E-SAND-USDC', 
+    'contractName': 'E-SAND-USD', 
     'clientOrderId': "",  
     'orderId': 1690615847831143159, 
 }
@@ -337,7 +337,7 @@ curl -X GET -i /dapi/v2/order?contractName=E-SAND-USDT&orderId=16906157103921893
 **Type:** `GET`
 
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** Query Order (USER_DATA)(HMAC SHA256)
 
@@ -378,7 +378,7 @@ curl -X GET -i /dapi/v2/order?contractName=E-SAND-USDT&orderId=16906157103921893
 
 ```demo
 curl -X POST -H 'Content-Type: application/json' -i /dapi/v2/order --data '{
-    'contractName': 'E-SAND-USDC', 
+    'contractName': 'E-SAND-USD', 
     'clientOrderId': 7993967859, 
     'side': 'BUY', 
     'type': 'LIMIT', 
@@ -443,7 +443,7 @@ curl -X POST -H 'Content-Type: application/json' -i /dapi/v2/order --data '{
 ## Cancel All Open Orders (TRADE)(HMAC SHA256)
 
 ```demo
-curl -X POST -i /dapi/v2/allOpenOrders --data 'contractName=E-BTC-USDT'
+curl -X POST -i /dapi/v2/allOpenOrders --data 'contractName=E-BTC-USD'
 ```
 
 > The above command returns JSON structured like this:
@@ -461,7 +461,7 @@ curl -X POST -i /dapi/v2/allOpenOrders --data 'contractName=E-BTC-USDT'
 **Type:** `POST`
 
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** Cancel All Open Orders (TRADE)(HMAC SHA256)
 

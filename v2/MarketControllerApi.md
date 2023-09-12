@@ -42,7 +42,7 @@ curl -X GET -i /dapi/v1/depth
 
 **Type:** `GET`
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** Order Book
 
@@ -104,7 +104,7 @@ curl -X GET -i /dapi/v1/ticker
 
 **Type:** `GET`
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** ticker
 
@@ -164,15 +164,15 @@ curl -X GET -i /dapi/v1/klines
 
 **Type:** `GET`
 
-**Content-Type:** `application/x-www-form-urlencoded;charset=UTF-8`
+**Content-Type:** `application/json`
 
 **Description:** Kline/Candlestick Data
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-|contractName|string| true     |Contract Name E.g. E-BTC-USDT |-|
+|contractName|string| true     |Contract Name E.g. E-BTC-USD |-|
 | interval              | string        | true     | identifies the sent value as: 1min,5min,15min,30min,1h,1day,1week,1month |
-| limit                 | integer       | false    | Default 100, Max 300                    |
+| limit                 | integer       | false    | Default 100, Max 300                   |
 
 **Response-fields:**
 
